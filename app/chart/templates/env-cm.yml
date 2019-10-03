@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-cm
+  labels:
+    app: {{ template "hello.name" . }}
+    env: {{ .Values.metadata.environment }}
+    component: web
+    chart: {{ template "hello.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+{{ toYaml .Values.env | indent 2 }}
+

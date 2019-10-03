@@ -2,8 +2,13 @@ nameOverride:
 metadata:
   environment: local
 image:
-  tag: michelesr/puma-sinatra-example
+  tag: michelesr/puma-sinatra-example:pg
   pullPolicy: IfNotPresent
+env:
+  DB_USER: postgres
+  DB_HOST: db
+  DB_PASSWORD: app
+  DB_NAME: hello
 service:
   type: ClusterIP
   annotations:
@@ -13,12 +18,17 @@ ingress:
   hostname: hello.world
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/rewrite-target: /
   redirectHttpToHttps: false
   paths:
-    - path: /*
+    - path: /
       backend:
         serviceName: hello
         servicePort: 3000
-
-
+postgresql:
+  enabled: true
+  persistence:
+    enabled: false
+  postgresqlUsername: postgres
+  postgresqlPassword: app
+  postgresqlDatabase: hello
+  fullnameOverride: db
