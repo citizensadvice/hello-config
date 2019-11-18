@@ -18,12 +18,12 @@ spec:
   - host: {{ .Values.ingress.hostname }}
     http:
       paths:
-{{- if .Values.ingress.paths }}
-{{ toYaml .Values.ingress.paths | indent 8 }}
-{{- end }}
 {{- if .Values.ingress.redirectHttpToHttps }}
         - path: /*
           backend:
             serviceName: ssl-redirect
             servicePort: use-annotation
+{{- end }}
+{{- if .Values.ingress.paths }}
+{{ toYaml .Values.ingress.paths | indent 8 }}
 {{- end }}
