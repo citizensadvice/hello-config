@@ -15,7 +15,7 @@ service:
     foo: bar
     hello: world
 ingress:
-  hostname: hello.world
+  hostname: hello.test
   annotations:
     kubernetes.io/ingress.class: nginx
   redirectHttpToHttps: false
